@@ -21,14 +21,13 @@ total_case_height = 20;
 
 
 complete_case();
-translate([0,0,-15.5])rotate([0,-(main_angle-bottom_angle),0])base3();
 
 module complete_case(){
     union(){
         rotate([0,-main_angle,0]){
             keyboard();
-            #color("MediumPurple")top_case();
-            #color("red")bottom_case();
+            color("MediumPurple")top_case();
+            color("PapayaWhip")bottom_case();
         }
     }
 }
@@ -44,6 +43,7 @@ module top_case(){
         translate([-case_width/2-25,-(case_length+30)/2,top_case_height/2-3])rotate([0,-15,0])cube([40,case_length+30,20]);
         translate([-(case_width+30)/2,-(case_length+30)/2,-10])cube([case_width+30,case_length+30,10]);
     }
+    translate([case_width-80, -(case_length-40)/2, -top_case_height+10])cube([5,case_length-40,5]);
 }
 
 module bottom_case(){
@@ -57,6 +57,7 @@ module bottom_case(){
     	translate([-(case_width+30)/2,-(case_length+30)/2,bottom_case_height])cube([case_width+30,case_length+30,10]);
 	    rotate([0,0,0])translate([(case_width+18)/2,(case_length+30)/2,-10.5])rotate([0,-bottom_angle,180])cube([case_width+18,case_length+30,10]);
     }
+    translate([0,0,-15.2])rotate([0,bottom_angle,0])base3();
 }
 
 module base(){
@@ -157,19 +158,19 @@ module mounting_screws(){
 }
 
 module key(){
-    rotate([0,0,270])import("./custom_keycaps/length-1.stl");
+    rotate([0,0,270])import("../custom_keycaps/length-1.stl");
 }
 
 module key_and_half(){
-    rotate([0,0,270])import("./custom_keycaps/length-1.5.stl");
+    rotate([0,0,270])import("../custom_keycaps/length-1.5.stl");
 }
 
 module key_double(){
-    rotate([0,0,270])import("./custom_keycaps/length-2.stl");
+    rotate([0,0,270])import("../custom_keycaps/length-2.stl");
 }
 
 module spacebar(){
-    rotate([0,0,270])import("./custom_keycaps/spacebar.stl");
+    rotate([0,0,270])import("../custom_keycaps/spacebar.stl");
 }
 
 module keycaps(){
