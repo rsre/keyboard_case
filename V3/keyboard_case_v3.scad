@@ -4,8 +4,6 @@
 
 mounting_hole_A = 62.5;
 mounting_hole_B = 311.5;
-keyboard_length = 318;
-keyboard_width = 98.50;
 
 main_angle = 8;
 bottom_angle = 2.5;
@@ -16,8 +14,6 @@ corner_inclination = 5;
 
 top_case_height = 10;
 bottom_case_height = 8;
-
-total_case_height = 20;
 
 
 complete_case();
@@ -36,23 +32,23 @@ module top_case(){
     translate([0,0,-top_case_height])difference(){
         hull(){
             translate([case_width/2,case_length/2,top_case_height/2-4])rotate([corner_inclination,-corner_inclination,0])cylinder(h=top_case_height+8, r = 8, center=true);
-            translate([-case_width/2,case_length/2,top_case_height/2])cylinder(h=top_case_height,r = 8, center=true);
-            translate([case_width/2,-case_length/2,top_case_height/2-4])rotate([-corner_inclination,-corner_inclination,0])cylinder(h=top_case_height+8,r = 8, center=true);
-            translate([-case_width/2,-case_length/2,top_case_height/2])cylinder(h=top_case_height,r = 8, center=true);
+            translate([-case_width/2,case_length/2,top_case_height/2-4])rotate([corner_inclination,0,0])cylinder(h=top_case_height+8, r = 8, center=true);
+            translate([case_width/2,-case_length/2,top_case_height/2-4])rotate([-corner_inclination,-corner_inclination,0])cylinder(h=top_case_height+8, r = 8, center=true);
+            translate([-case_width/2,-case_length/2,top_case_height/2-4])rotate([-corner_inclination,0,0])cylinder(h=top_case_height+8, r = 8, center=true);
         }
         translate([-case_width/2-25,-(case_length+30)/2,top_case_height/2-3])rotate([0,-15,0])cube([40,case_length+30,20]);
         translate([-(case_width+30)/2,-(case_length+30)/2,-10])cube([case_width+30,case_length+30,10]);
     }
-    translate([case_width-80, -(case_length-40)/2, -top_case_height+10])cube([5,case_length-40,5]);
+    translate([case_width-80, -(case_length-30)/2, -top_case_height+10])cube([5,case_length-30,5]);
 }
 
 module bottom_case(){
     translate([0,0,-(bottom_case_height+top_case_height)])difference(){
         hull(){
-            translate([case_width/2,case_length/2,bottom_case_height/2+4])rotate([-corner_inclination,corner_inclination,0])cylinder(h=bottom_case_height+8,r = 8, center=true);
-            translate([-case_width/2,case_length/2,bottom_case_height/2])cylinder(h=bottom_case_height,r = 8, center=true);
-            translate([case_width/2,-case_length/2,bottom_case_height/2+4])rotate([corner_inclination,corner_inclination,0])cylinder(h=bottom_case_height+8,r = 8, center=true);
-            translate([-case_width/2,-case_length/2,bottom_case_height/2])cylinder(h=bottom_case_height,r = 8, center=true);
+            translate([case_width/2,case_length/2,bottom_case_height/2+4])rotate([-corner_inclination,corner_inclination,0])cylinder(h=bottom_case_height+8, r = 8, center=true);
+            translate([-case_width/2,case_length/2,bottom_case_height/2+4])rotate([-corner_inclination,0,0])cylinder(h=bottom_case_height+8, r = 8, center=true);
+            translate([case_width/2,-case_length/2,bottom_case_height/2+4])rotate([corner_inclination,corner_inclination,0])cylinder(h=bottom_case_height+8, r = 8, center=true);
+            translate([-case_width/2,-case_length/2,bottom_case_height/2+4])rotate([corner_inclination,0,0])cylinder(h=bottom_case_height+8, r = 8, center=true);
         }    
     	translate([-(case_width+30)/2,-(case_length+30)/2,bottom_case_height])cube([case_width+30,case_length+30,10]);
 	    rotate([0,0,0])translate([(case_width+18)/2,(case_length+30)/2,-10.5])rotate([0,-bottom_angle,180])cube([case_width+18,case_length+30,10]);
@@ -138,11 +134,13 @@ module keyboard(){
     width = 99;
     
     translate([0,0,-16]){
-        mounting_screws();
         translate([0,0,23])keycaps();
         //keycaps_bulk();
         translate([-width/2, -length_centre/2, 0])cube([width, length_centre, keyboard_thick_centre]);
-        translate([-width/2, -length_total/2, keyboard_thick_side])cube([width, length_total, keyboard_thick_side]);
+        difference(){
+            translate([-width/2, -length_total/2, keyboard_thick_side])cube([width, length_total, keyboard_thick_side]);
+            mounting_screws();
+        }
     }
 }
 
