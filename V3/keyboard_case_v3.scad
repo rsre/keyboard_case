@@ -21,14 +21,29 @@ complete_case();
 module complete_case(){
     union(){
         rotate([0,-main_angle,0]){
-            keyboard();
-            color("MediumPurple")top_case();
+            //keyboard();
+            //color("MediumPurple")top_case();
             color("PapayaWhip")bottom_case();
         }
     }
 }
 
 module top_case(){
+    difference(){
+        top_case_block();
+        keys_cutout();
+        keyboard_base_cutout_top();
+    }
+}
+
+module bottom_case(){
+    difference(){
+        bottom_case_block();
+        keyboard_base_cutout_bottom();
+    }
+}
+
+module top_case_block(){
     translate([0,0,-top_case_height])difference(){
         hull(){
             translate([case_width/2,case_length/2,top_case_height/2-4])rotate([corner_inclination,-corner_inclination,0])cylinder(h=top_case_height+8, r = 8, center=true);
@@ -42,7 +57,7 @@ module top_case(){
     translate([case_width-80, -(case_length-30)/2, -top_case_height+10])cube([5,case_length-30,5]);
 }
 
-module bottom_case(){
+module bottom_case_block(){
     translate([0,0,-(bottom_case_height+top_case_height)])difference(){
         hull(){
             translate([case_width/2,case_length/2,bottom_case_height/2+4])rotate([-corner_inclination,corner_inclination,0])cylinder(h=bottom_case_height+8, r = 8, center=true);
@@ -111,36 +126,33 @@ module base3(){
     height = 10; //old value was 10, should be calc according to bottom_angle and main_angle
     color("green")polyhedron(
         points=[
-            [A,B,0],[A,-B,0],[-(A+base_taper2),-(B-base_taper+base_taper2),0],[-(A+base_taper2),B-base_taper+base_taper2,0],//base
-            [A-back_taper,-(B-base_taper),-height],[A-back_taper,B-base_taper,-height],
-            [-A,B-base_taper,-front_height],[-A,-(B-base_taper),-front_height]
+            //base
+            [A,B,0],//0 TR
+            [A,-B,0],//1 BR
+            [-(A+base_taper2),-(B-base_taper+base_taper2),0],//2 BL
+            [-(A+base_taper2),B-base_taper+base_taper2,0],//3 TL
+            //top
+            [A-back_taper,B-base_taper,-height],//4 TR
+            [A-back_taper,-(B-base_taper),-height],//5 BR
+            [-A,-(B-base_taper),-front_height],//6 BL
+            [-A,B-base_taper,-front_height]//7 TL
         ], 
         faces =[
-            [0,3,2,1],//base
-            [0,1,4,5],//back
-            [0,5,6,3],//side
-            [1,2,7,4],//side
-            [2,3,6,7],//front
-            [7,6,5,4]//top
+            [0,1,2,3],  // bottom
+            [4,5,1,0],  // front
+            [7,6,5,4],  // top
+            [5,6,2,1],  // right
+            [6,7,3,2],  // back
+            [7,4,0,3] // left
         ]
     );
 }
 
 module keyboard(){
-    keyboard_thick_side = 8;
-    keyboard_thick_centre = 15;
-    length_centre = 270;
-    length_total = 270+25+25;
-    width = 99;
-    
     translate([0,0,-16]){
         translate([0,0,23])keycaps();
-        cutout();
-        translate([-width/2, -length_centre/2, 0])cube([width, length_centre, keyboard_thick_centre]);
-        difference(){
-            translate([-width/2, -length_total/2, keyboard_thick_side])cube([width, length_total, keyboard_thick_side]);
-            mounting_screws();
-        }
+        //keys_cutout();
+        keyboard_base();
     }
 }
 
@@ -152,6 +164,19 @@ module mounting_screws(){
         translate([-mounting_hole_A/2, mounting_hole_B/2, 0])cylinder(h=height,d=diameter);
         translate([mounting_hole_A/2, -mounting_hole_B/2, 0])cylinder(h=height,d=diameter);
         translate([-mounting_hole_A/2, -mounting_hole_B/2, 0])cylinder(h=height,d=diameter);
+    }
+}
+
+module keyboard_base(){
+    keyboard_thick_side = 8;
+    keyboard_thick_centre = 15;
+    length_centre = 270;
+    length_total = 270+25+25;
+    width = 99;
+    translate([-width/2, -length_centre/2, 0])cube([width, length_centre, keyboard_thick_centre]);
+    difference(){
+        translate([-width/2, -length_total/2, keyboard_thick_side])cube([width, length_total, keyboard_thick_side]);
+        mounting_screws();
     }
 }
 
@@ -224,7 +249,7 @@ module keycaps_bulk(){
     }
 }
 
-module cutout(){
+module keys_cutout(){
     keyboard_width = 99;
     keyboard_length = 320;
     d_to_top = 3;
@@ -245,4 +270,36 @@ module cutout(){
         translate([keyboard_width/2-d_to_top-4*1U-3*spacing,-keyboard_length/2 + 43.5,0])cube([1U+2,row_4,18]);
         translate([keyboard_width/2-d_to_top-5*1U-4*spacing,-keyboard_length/2 + 91,0])cube([1U+2,spacebar,18]);
     }
+}
+
+module keyboard_base_cutout_top(){
+    keyboard_thick_side = 8;
+    keyboard_thick_centre = 15;
+    length_centre = 270;
+    length_total = 270+25+25;
+    width = 99;
+    translate([0,0,-16]){
+        translate([-width/2, -length_centre/2, 0])cube([width, length_centre, keyboard_thick_centre]);
+        difference(){
+            translate([-width/2, -length_total/2, keyboard_thick_side])cube([width, length_total, keyboard_thick_side]);
+            mounting_screws();
+        }
+    }
+    translate([-width/2, -length_total/2, keyboard_thick_side-19])cube([width, length_total, keyboard_thick_side]);
+}
+
+module keyboard_base_cutout_bottom(){
+    keyboard_thick_side = 8;
+    keyboard_thick_centre = 15;
+    length_centre = 270;
+    length_total = 270+25+25;
+    width = 99;
+    translate([0,0,-16]){
+        translate([-width/2, -length_centre/2, 0])cube([width, length_centre, keyboard_thick_centre]);
+        difference(){
+            translate([-width/2, -length_total/2, keyboard_thick_side])cube([width, length_total, keyboard_thick_side]);
+            mounting_screws();
+        }
+    }
+    translate([-width/2, -length_total/2, keyboard_thick_side-19])cube([width, length_total, keyboard_thick_side]);
 }
