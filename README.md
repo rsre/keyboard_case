@@ -4,11 +4,12 @@
 Some time ago a friend gave me this barebones keyboard with Alps switches. They seem to be Alps SKCC Cream. It has some very nice old school spheric keycaps. The keyboard consists of a steel plane where the switches are mounted and a PCB that connects them. I decided to create a case for it so I can use it.
 
 All the designs are made using [OpenSCAD](http://openscad.org).
+## Iterations
 
 ## Iterations
 
 First I modelled the keyboard so I could design around it.
-<img align="left" src="/keyboard_raw.png" width=250 />
+<img src="/keyboard_raw.png"/>
 
 On my first try I began by designing a case loosely based on the IBM Pingmaster and the IBM Model M. I didn't like how bulky it was coming out and the lack of design features didn't allow to make it feel slimer so I abandoned the first design.
 <img align="left" src="/V1/pingmaster.png" width=250 />
