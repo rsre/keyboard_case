@@ -135,7 +135,7 @@ module keyboard(){
     
     translate([0,0,-16]){
         translate([0,0,23])keycaps();
-        //keycaps_bulk();
+        cutout();
         translate([-width/2, -length_centre/2, 0])cube([width, length_centre, keyboard_thick_centre]);
         difference(){
             translate([-width/2, -length_total/2, keyboard_thick_side])cube([width, length_total, keyboard_thick_side]);
@@ -202,6 +202,8 @@ module keycaps(){
 }
 
 module keycaps_bulk(){
+    keyboard_width = 99;
+    keyboard_length = 320;
     d_to_top = 3;
     d_to_bot = 1;
     1U = 18;
@@ -219,5 +221,28 @@ module keycaps_bulk(){
         translate([keyboard_width/2-d_to_top-3*1U-2*spacing,-keyboard_length/2 + 24.5,0])cube([1U,row_3,18]);
         translate([keyboard_width/2-d_to_top-4*1U-3*spacing,-keyboard_length/2 + 43.5,0])cube([1U,row_4,18]);
         translate([keyboard_width/2-d_to_top-5*1U-4*spacing,-keyboard_length/2 + 91,0])cube([1U,spacebar,18]);
+    }
+}
+
+module cutout(){
+    keyboard_width = 99;
+    keyboard_length = 320;
+    d_to_top = 3;
+    d_to_bot = 1;
+    1U = 18;
+    1point5U = 28;
+    2U = 36;
+    spacebar = 150;
+    spacing = 1;
+    row_1 = 13*1U + 12*spacing;
+    row_2 = 14*1U + 13*spacing;
+    row_3 = 12*1U + 2U + 13*spacing;
+    row_4 = 2*1point5U + 10*1U + 11*spacing;
+    color("black"){
+        translate([keyboard_width/2-d_to_top-1U,-keyboard_length/2 + 38,0])cube([1U,row_1,18]);
+        translate([keyboard_width/2-d_to_top-2*1U-spacing,-keyboard_length/2 + 29,0])cube([1U+2,row_2,18]);
+        translate([keyboard_width/2-d_to_top-3*1U-2*spacing,-keyboard_length/2 + 24.5,0])cube([1U+2,row_3,18]);
+        translate([keyboard_width/2-d_to_top-4*1U-3*spacing,-keyboard_length/2 + 43.5,0])cube([1U+2,row_4,18]);
+        translate([keyboard_width/2-d_to_top-5*1U-4*spacing,-keyboard_length/2 + 91,0])cube([1U+2,spacebar,18]);
     }
 }

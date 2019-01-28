@@ -82,19 +82,19 @@ module mounting_screws(){
 }
 
 module key(){
-    rotate([0,0,270])import("./custom_keycaps/length-1.stl");
+    rotate([0,0,270])import("../custom_keycaps/length-1.stl");
 }
 
 module key_and_half(){
-    rotate([0,0,270])import("./custom_keycaps/length-1.5.stl");
+    rotate([0,0,270])import("../custom_keycaps/length-1.5.stl");
 }
 
 module key_double(){
-    rotate([0,0,270])import("./custom_keycaps/length-2.stl");
+    rotate([0,0,270])import("../custom_keycaps/length-2.stl");
 }
 
 module spacebar(){
-    rotate([0,0,270])import("./custom_keycaps/spacebar.stl");
+    rotate([0,0,270])import("../custom_keycaps/spacebar.stl");
 }
 
 module keycaps(){

@@ -25,7 +25,7 @@ The second iteration was also based on a classic: the kishaver. This time I deci
 <img src="/V2/kishaver.png" width=350 />
 
 
-Looking for some inspiration I came across a design I quite liked and I setted to try to imitate it. I liked that it looked kind of retro but also that it had some design elements that could help me make the complete thing more sleek and slim. This is the current design phase. I have most of the outer design completed, now I need to hollow it and make holes for screws and connectors.
+Looking for some inspiration I came across a Cherry G80-3000 inspired GH60 case. I quite liked the design so I setted to try to imitate it. I liked that it looked kind of retro but also that it had some design elements that could help me make the complete thing more sleek and slim. This is the current design phase. I have most of the outer design completed, now I need to hollow it and make holes for screws and connectors.
 
 
 <img src="/V3/g60_or_something.png" width=350 />
