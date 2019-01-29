@@ -68,6 +68,8 @@ module bottom_case(){
         keyboard_base_cutout_bottom();
         translate([0,0,-12])rotate([0,bottom_angle,0])base_cutout();
         screw_holes();
+        //#translate([0,0,-(top_case_height+bottom_case_height)-5])rotate([0,main_angle,0])branding();
+        translate([0,0,-(top_case_height+bottom_case_height)-3.7 ])rotate([0,main_angle-2,0])branding();
     }
 }
 
@@ -367,4 +369,12 @@ module screw_holes(){
     screw_hole(x,-y,-5,0,0,0);
     screw_hole(-x+4 ,y-8,-4.5,0,0,0);
     screw_hole(-x+4,-y+8,-4.5,0,0,0);
+}
+
+module branding(){
+    n = 0.2;
+    rotate([0,180,270])scale([n,n,n/2])import("../RS.stl");
+    translate([-25,-20,0])rotate([180,0,90])linear_extrude(height = 1) {
+       text("keyboard", center=true, font="Bree Serif:style=Regular",size= 7);
+     }
 }
