@@ -15,36 +15,59 @@ corner_inclination = 5;
 top_case_height = 10;
 bottom_case_height = 8;
 
+wiggle_factor = 0.1;
+
 
 complete_case();
 
-module complete_case(){
-    union(){
-        rotate([0,-main_angle,0]){
-            //color("DimGray")keyboard();
-            color("MediumPurple")top_case();
-            color("PapayaWhip")bottom_case();
+module complete_case_cut(){
+    difference(){
+        union(){
+            rotate([0,-main_angle,0]){
+                //color("DimGray")keyboard();
+                color("MediumPurple")top_case();
+                color("PapayaWhip")bottom_case();
+            }
         }
+        translate([-70,0,-70])cube([150,140,150]);
+    }
+}
+
+module complete_case(){
+    rotate([0,-main_angle,0]){
+        //color("DimGray")keyboard();
+        color("MediumPurple")top_case();
+        color("PapayaWhip")bottom_case();
     }
 }
 
 module top_case(){
     difference(){
-        top_case_block();
+        union(){
+            difference(){
+                top_case_block();
+                interlock(1,9);
+            }
+            interlock(1,7);
+        }
         keys_cutout();
         keyboard_base_cutout_top();
+        screw_holes();
     }
 }
 
 module bottom_case(){
     difference(){
         union(){
-            bottom_case_block();
+            difference(){
+                bottom_case_block();
+                interlock(1+wiggle_factor,7+wiggle_factor);
+            }
             keyboard_support();
         }
-        #keyboard_base_cutout_bottom();
+        keyboard_base_cutout_bottom();
         translate([0,0,-12])rotate([0,bottom_angle,0])base_cutout();
-        //#translate([-70,0,-70])cube([150,150,150]);
+        screw_holes();
     }
 }
 
@@ -315,4 +338,33 @@ module mounting_posts(){
         translate([mounting_hole_A/2, -mounting_hole_B/2, 0])cylinder(h=height,d=diameter);
         translate([-mounting_hole_A/2, -mounting_hole_B/2, 0])cylinder(h=height,d=diameter);
     }
+}
+
+module interlock(height,radius){
+    rotate([0,-0.05,0])translate([0,0,-top_case_height])hull(){
+        translate([case_width/2,case_length/2,0])cylinder(h=height, r = radius, center=true);
+        translate([-case_width/2,case_length/2,0])cylinder(h=height, r = radius, center=true);
+        translate([case_width/2,-case_length/2,0])cylinder(h=height, r = radius, center=true);
+        translate([-case_width/2,-case_length/2,0])cylinder(h=height, r = radius, center=true);
+    }
+}
+
+module screw_hole(x,y,z,angle_x,,angle_y,angle_z){
+    height = 10;
+    diameter = 2.98;
+    head_height = 30;
+    head_diameter = 5;
+    rotate([angle_x,angle_y,angle_z]){
+        translate([x, y, z-height])cylinder(h=height,d=diameter);
+        translate([x, y, z-(height+head_height-3)])cylinder(h=head_height,d=head_diameter);
+    }
+}
+
+module screw_holes(){
+    x = case_width/2;
+    y = (1/3)*case_length+36;
+    screw_hole(x,y,-5,0,0,0);
+    screw_hole(x,-y,-5,0,0,0);
+    screw_hole(-x+4 ,y-8,-4.5,0,0,0);
+    screw_hole(-x+4,-y+8,-4.5,0,0,0);
 }
