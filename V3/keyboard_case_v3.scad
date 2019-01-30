@@ -20,6 +20,44 @@ wiggle_factor = 0.1;
 
 complete_case();
 
+module usb_support(){
+    case_angle = 45;
+    hole_separation = 30;
+    usb_width = 10;
+    usb_poke = 2;
+    
+    difference(){
+        translate([-30,-(hole_separation+10)/2,-25/2])cube([30,hole_separation+10,usb_width+16]);
+
+        
+        translate([-usb_poke-0.01,-usb_width/2,0])cube([usb_width,usb_width,usb_width]);
+        translate([-32,-(usb_width+5)/2,-5/2])cube([30,usb_width+5,usb_width+5]);
+        rotate([0,case_angle,180])translate([3,-hole_separation+5,-9])cube([30,hole_separation+20,hole_separation+40]);
+
+        
+        translate([-10,hole_separation/2,usb_width/2])rotate([0,90,0])cylinder(h=20,r=1.5);
+        translate([-10,-hole_separation/2,usb_width/2])rotate([0,90,0])cylinder(h=20,r=1.5);
+    }
+}
+
+module usb_hole(){
+    case_angle = 45;
+    hole_separation = 30;
+    usb_width = 10;
+    usb_poke = 2;
+
+    translate([-usb_poke-0.01,-usb_width/2,0])cube([usb_width,usb_width,usb_width]);
+    translate([-32,-(usb_width+5)/2,-5/2])cube([30,usb_width+5,usb_width+5]);    
+}
+
+module usb_cutout_top(){
+    case_angle = 45;
+    hole_separation = 30;
+    usb_width = 10;
+    usb_poke = 2;
+    translate([-10,-(hole_separation+10)/2-1,-25/2+1])cube([12,hole_separation+10+2,usb_width+16+2]);
+}
+
 module complete_case_cut(){
     difference(){
         union(){
@@ -53,6 +91,7 @@ module top_case(){
         keys_cutout();
         keyboard_base_cutout_top();
         screw_holes();
+        translate([53,90,-23])rotate([0,-main_angle,180])usb_cutout_top();
     }
 }
 
@@ -70,7 +109,9 @@ module bottom_case(){
         screw_holes();
         //#translate([0,0,-(top_case_height+bottom_case_height)-5])rotate([0,main_angle,0])branding();
         translate([0,0,-(top_case_height+bottom_case_height)-3.7 ])rotate([0,main_angle-2,0])branding();
+        translate([53,90,-23])rotate([0,-main_angle,180])usb_hole();
     }
+    translate([53,90,-23])rotate([0,-main_angle,180])usb_support();
 }
 
 module top_case_block(){
@@ -167,7 +208,7 @@ module base_cutout(){
 
 module keyboard(){
     translate([0,0,-16]){
-        //translate([0,0,23])keycaps();
+        translate([0,0,23])keycaps();
         //keys_cutout();
         keyboard_base();
     }
