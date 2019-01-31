@@ -20,44 +20,6 @@ wiggle_factor = 0.1;
 
 complete_case();
 
-module usb_support(){
-    case_angle = 45;
-    hole_separation = 30;
-    usb_width = 10;
-    usb_poke = 2;
-    
-    difference(){
-        translate([-30,-(hole_separation+10)/2,-25/2])cube([30,hole_separation+10,usb_width+16]);
-
-        
-        translate([-usb_poke-0.01,-usb_width/2,0])cube([usb_width,usb_width,usb_width]);
-        translate([-32,-(usb_width+5)/2,-5/2])cube([30,usb_width+5,usb_width+5]);
-        rotate([0,case_angle,180])translate([3,-hole_separation+5,-9])cube([30,hole_separation+20,hole_separation+40]);
-
-        
-        translate([-10,hole_separation/2,usb_width/2])rotate([0,90,0])cylinder(h=20,r=1.5);
-        translate([-10,-hole_separation/2,usb_width/2])rotate([0,90,0])cylinder(h=20,r=1.5);
-    }
-}
-
-module usb_hole(){
-    case_angle = 45;
-    hole_separation = 30;
-    usb_width = 10;
-    usb_poke = 2;
-
-    translate([-usb_poke-0.01,-usb_width/2,0])cube([usb_width,usb_width,usb_width]);
-    translate([-32,-(usb_width+5)/2,-5/2])cube([30,usb_width+5,usb_width+5]);    
-}
-
-module usb_cutout_top(){
-    case_angle = 45;
-    hole_separation = 30;
-    usb_width = 10;
-    usb_poke = 2;
-    translate([-10,-(hole_separation+10)/2-1,-25/2+1])cube([12,hole_separation+10+2,usb_width+16+2]);
-}
-
 module complete_case_cut(){
     difference(){
         union(){
@@ -73,7 +35,7 @@ module complete_case_cut(){
 
 module complete_case(){
     rotate([0,-main_angle,0]){
-        //color("DimGray")keyboard();
+        color("DimGray")keyboard();
         color("MediumPurple")top_case();
         color("PapayaWhip")bottom_case();
     }
@@ -187,13 +149,13 @@ module base_cutout(){
             //base
             [A,B,10],//0 TR
             [A,-B,10],//1 BR
-            [-(A+base_taper2),-(B-base_taper+base_taper2),0],//2 BL
-            [-(A+base_taper2),B-base_taper+base_taper2,0],//3 TL
+            [-(A+base_taper2)+12,-(B-base_taper+base_taper2),0],//2 BL
+            [-(A+base_taper2)+12,B-base_taper+base_taper2,0],//3 TL
             //top
             [A-back_taper,B-base_taper,-height],//4 TR
             [A-back_taper,-(B-base_taper),-height],//5 BR
-            [-A,-(B-base_taper),-front_height],//6 BL
-            [-A,B-base_taper,-front_height]//7 TL
+            [-A+12,-(B-base_taper),-front_height],//6 BL
+            [-A+12,B-base_taper,-front_height]//7 TL
         ], 
         faces =[
             [0,1,2,3],  // bottom
@@ -336,13 +298,8 @@ module keyboard_base_cutout_top(){
     length_centre = 270;
     length_total = 270+25+25;
     width = 99;
-    translate([0,0,-16]){
-        translate([-width/2, -length_centre/2, 0])cube([width, length_centre, keyboard_thick_centre]);
-        difference(){
-            translate([-width/2, -length_total/2, keyboard_thick_side])cube([width, length_total, keyboard_thick_side]);
-            mounting_screws();
-        }
-    }
+    translate([-width/2, -length_total/2, keyboard_thick_side-16])cube([width, length_total, keyboard_thick_side]);
+    translate([0,0,-15.5])mounting_screws();
     translate([-width/2, -length_total/2, keyboard_thick_side-19])cube([width, length_total, keyboard_thick_side]);
 }
 
@@ -410,6 +367,44 @@ module screw_holes(){
     screw_hole(x,-y,-5,0,0,0);
     screw_hole(-x+4 ,y-8,-4.5,0,0,0);
     screw_hole(-x+4,-y+8,-4.5,0,0,0);
+}
+
+module usb_support(){
+    case_angle = 45;
+    hole_separation = 30;
+    usb_width = 10;
+    usb_poke = 2;
+    
+    difference(){
+        translate([-30,-(hole_separation+10)/2,-25/2])cube([30,hole_separation+10,usb_width+16]);
+
+        
+        translate([-usb_poke-0.01,-usb_width/2,0])cube([usb_width,usb_width,usb_width]);
+        translate([-32,-(usb_width+5)/2,-5/2])cube([30,usb_width+5,usb_width+5]);
+        rotate([0,case_angle,180])translate([3,-hole_separation+5,-9])cube([30,hole_separation+20,hole_separation+40]);
+
+        
+        translate([-10,hole_separation/2,usb_width/2])rotate([0,90,0])cylinder(h=20,r=1.5);
+        translate([-10,-hole_separation/2,usb_width/2])rotate([0,90,0])cylinder(h=20,r=1.5);
+    }
+}
+
+module usb_hole(){
+    case_angle = 45;
+    hole_separation = 30;
+    usb_width = 10;
+    usb_poke = 2;
+
+    translate([-usb_poke-0.01,-usb_width/2,0])cube([usb_width,usb_width,usb_width]);
+    translate([-32,-(usb_width+5)/2,-5/2])cube([30,usb_width+5,usb_width+5]);    
+}
+
+module usb_cutout_top(){
+    case_angle = 45;
+    hole_separation = 30;
+    usb_width = 10;
+    usb_poke = 2;
+    translate([-10,-(hole_separation+10)/2-1,-25/2+1])cube([17,hole_separation+10+2,usb_width+16+2]);
 }
 
 module branding(){

@@ -25,15 +25,15 @@ The second iteration was also based on a classic: the kishaver. This time I deci
 <img src="/V2/kishaver.png" width=350 />
 
 
-Looking for some inspiration I came across a Cherry G80-3000 inspired GH60 case. I quite liked the design so I setted to try to imitate it. I liked that it looked kind of retro but also that it had some design elements that could help me make the complete thing more sleek and slim. This is the current design phase. I have most of the outer design completed, now I need to hollow it and make holes for screws and connectors.
+Looking for some inspiration I came across a Cherry G80-3000 inspired GH60 case. I quite liked the design so I setted to try to imitate it. I liked that it looked kind of retro but also that it had some design elements that could help me make the complete thing more sleek and slim. I designed the outer case with a few custom modifications like the top bar over the keys, I love having a place to rest my pen there. I proceded to hollow it out and then added a lip between the two parts and screw holes so it can be fastened together. I also added a place to add a USB port like [this](https://es.aliexpress.com/item/2017-New-Arrival-Black-Printer-Panel-Mount-Cable-Screw-Mini-USB-5-Pin-Male-to-USB/32831695483.html) and some branding. I don't have the proper measures for the USB port and I don't know if I'll even be able to fit it in the final design without some modding, We'll see.
 
 
 <img src="/V3/g60_or_something.png" width=350 />
 
 
-After that's done I'll have to decide how to print this in my printer because I can only print 300x200mm. Then do some test prints, check if everything fits, correct mistakes, etc.
+I have decided to print this diagonally and vertical in the sort axis in my printer because I can only print 300x200mm. I still have to do do some test prints at scale, check if everything fits, correct mistakes, etc.
 
 
 ## Electronics and firmware
 
-In testing I was using an arduino UNO with some code I found online. In the "final" version I'll probably use the TMK firmware with an arduino nano or something along the lines.
+In testing I was using an arduino UNO with some code I found online. In the "final" version I'll probably use the TMK or QMK firmware with an arduino nano or something along the lines.
