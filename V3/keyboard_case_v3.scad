@@ -35,7 +35,7 @@ module complete_case_cut(){
 
 module complete_case(){
     rotate([0,-main_angle,0]){
-        color("DimGray")keyboard();
+        //color("DimGray")keyboard();
         color("MediumPurple")top_case();
         color("PapayaWhip")bottom_case();
     }
