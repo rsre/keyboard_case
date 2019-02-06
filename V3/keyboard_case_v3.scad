@@ -411,6 +411,6 @@ module branding(){
     n = 0.2;
     rotate([0,180,270])scale([n,n,n/2])import("../RS.stl");
     translate([-25,-20,0])rotate([180,0,90])linear_extrude(height = 1) {
-       text("keyboard", center=true, font="Bree Serif:style=Regular",size= 7);
+       text("keyboard", font="Bree Serif:style=Regular",size= 7);
      }
 }
